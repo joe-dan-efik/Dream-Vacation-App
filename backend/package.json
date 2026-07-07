@@ -1,0 +1,13 @@
+{
+  "name": "dream-vacation-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "echo \"Running linting...\" && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

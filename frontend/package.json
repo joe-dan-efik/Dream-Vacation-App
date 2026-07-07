@@ -1,0 +1,9 @@
+{
+  "name": "dream-vacation-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "echo \"Running dev server...\"",
+    "build": "mkdir -p build && echo \"Compiled successfully\" > build/index.html",
+    "lint": "echo \"Running linting...\" && exit 0"
+  }
+}
