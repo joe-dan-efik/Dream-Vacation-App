@@ -29,13 +29,11 @@ jobs:
           cd backend
           npm install
 
-      # Runs the lint script we added to your package.json
       - name: Run Lint Checks
         run: |
           cd backend
           npm run lint --if-present
 
-      # Runs the test script we added to your package.json
       - name: Run Tests
         run: |
           cd backend
@@ -67,9 +65,11 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/dream-vacation-backend:latest
             ${{ secrets.DOCKER_USERNAME }}/dream-vacation-backend:${{ github.sha }}
-deploy:
+
+  deploy:
     runs-on: ubuntu-latest
     needs: build-and-push
+    if: github.event_name == 'push'
 
     steps:
       - name: Checkout repository
