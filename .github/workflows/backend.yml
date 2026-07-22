@@ -66,9 +66,9 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/dream-vacation-backend:latest
             ${{ secrets.DOCKER_USERNAME }}/dream-vacation-backend:${{ github.sha }}
 
-deploy:
-    runs-on: ubuntu-latest
+  deploy:
     needs: build-and-push
+    runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
     steps:
