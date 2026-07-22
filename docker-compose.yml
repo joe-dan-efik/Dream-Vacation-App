@@ -2,18 +2,11 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    image: joedaneffiong/dream-vacation-backend:latest
     ports:
       - "5000:5000"
     environment:
       - NODE_ENV=production
-    networks:
-      - vacation-network
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "80:80"
     networks:
       - vacation-network
 
