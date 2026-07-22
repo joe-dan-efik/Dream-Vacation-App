@@ -67,7 +67,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/dream-vacation-backend:latest
             ${{ secrets.DOCKER_USERNAME }}/dream-vacation-backend:${{ github.sha }}
-           deploy:
+deploy:
     runs-on: ubuntu-latest
     needs: build-and-push
 
