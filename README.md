@@ -1,23 +1,39 @@
-# Dream Vacation App - CI/CD Pipeline Documentation
+# Dream Vacation App - AWS Deployment & CI/CD Pipeline
 
-This project features fully automated Continuous Integration and Continuous Deployment (CI/CD) workflows powered by GitHub Actions.
+This repository contains the deployment configuration and automated CI/CD pipeline for the **Dream Vacation App**, hosted on AWS EC2 within a custom VPC infrastructure.
 
-## CI/CD Architecture
-The pipeline is split into two independent workflows to optimize build performance and enforce modularity:
-1. **Frontend Workflow (`.github/workflows/frontend.yml`)**: Monitored via path filters; executes exclusively when changes are introduced to files inside the `frontend/` directory.
-2. **Backend Workflow (`.github/workflows/backend.yml`)**: Monitored via path filters; executes exclusively when changes are introduced to files inside the `backend/` directory.
+---
 
-### Pipeline Stages
-Each workflow utilizes a multi-stage configuration:
-* **Stage 1: Lint & Test (CI):** Installs project dependencies securely via `npm install`, then executes code linting (`npm run lint`) and runtime unit checks (`npm test`) to guarantee stability.
-* **Stage 2: Build & Push (CD):** Triggered strictly on branch pushes or completed merges to `main` or `dev`. Authenticates securely to Docker Hub and compiles production-ready container images before uploading them.
+## 🏗️ Architecture & Network Setup
 
-## Container Registry Tagging
-Images are pushed to Docker Hub and uniquely tagged using two distinct markers:
-* `:latest` - Tracks the most up-to-date deployment build.
-* `:${{ github.sha }}` - Tracks the precise git commit SHA for version tracing and deployment rollbacks.
+* **VPC:** `dream-vpc` (`10.0.0.0/16`)
+* **Subnet:** `dream-subnet` (`10.0.1.0/24`)
+* **Internet Gateway:** `dream-igw`
+* **Route Table:** `dream-rt`
+* **Compute:** AWS EC2 (`t3.micro` / Ubuntu) running Docker & Docker Compose
 
-## Required Environment Secrets
-To run successfully, the repository requires the following GitHub Secrets configured:
-* `DOCKER_USERNAME` - Your Docker Hub profile handle.
-* `DOCKER_TOKEN` - A valid Personal Access Token generated via Docker Hub settings.
+---
+
+## 📋 Deliverables & Verification
+
+### 1. Custom VPC and Subnet Configuration
+![VPC and Subnet](./images/vpc-subnet.png)
+
+### 2. EC2 Instance Running Status
+![EC2 Instance Running](./images/ec2-instance.png)
+
+### 3. Application Running Live in Browser
+![App in Browser](./images/app-browser.png)
+
+### 4. Successful CI/CD Deployment Pipeline
+![CI/CD Pipeline Logs](./images/pipeline-success.png)
+
+---
+
+## 🚀 CI/CD Workflow Overview
+
+The GitHub Actions pipeline automates testing, container image publishing, and EC2 deployment:
+
+1. **Test & Lint:** Validates code syntax and runs test suites.
+2. **Build & Push:** Packages the Node.js application into a Docker container and pushes it to Docker Hub (`joedaneffiong/dream-vacation-backend`).
+3. **Deploy:** Connects via SSH to the AWS EC2 instance, transfers `docker-compose.yml`, pulls the updated image from Docker Hub, and spins up the live container using Docker Compose.
