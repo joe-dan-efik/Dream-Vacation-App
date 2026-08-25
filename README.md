@@ -1,7 +1,13 @@
 # Dream Vacation Destinations
 
 This application allows users to create a list of countries they'd like to visit, providing basic information about each country. The project is structured to mimic a real-life production environment, employing best practices in software development, deployment, and continuous integration/continuous delivery (CI/CD).
+## Architecture
 
+```mermaid
+flowchart TD
+    A[User] --> B[React Frontend]
+    B --> C[Node.js Backend]
+    C --> D[PostgreSQL Database]
 ## Setup
 
 ### Backend
