@@ -1,4 +1,6 @@
 # Dream Vacation Destinations
+[![CI](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/ci.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/ci.yml) 
+[![CD](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/cd.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/cd.yml)
 
 This application allows users to create a list of countries they'd like to visit, providing basic information about each country. The project is structured to mimic a real-life production environment, employing best practices in software development, deployment, and continuous integration/continuous delivery (CI/CD).
 
@@ -42,7 +44,7 @@ flowchart TD
 - **Backend**: Node.js with Express
 - **Database**: PostgreSQL
 - **External API**: REST Countries API
-- **CI/CD**: To be implemented with [CI/CD tools, e.g., GitHub Actions, Jenkins, or Azure DevOps]
+- **CI/CD**: GitHub Actions with Docker images published to GitHub Container Registry (GHCR)
 - **Infrastructure as Code**: To be implemented with tools like Terraform or Helm
 
 ## Best Practices
