@@ -31,3 +31,4 @@ Thumbs.db
 *.tfstate.*
 *.tfvars
 !*.tfvars.example
+frontend/build/
