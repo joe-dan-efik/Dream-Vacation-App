@@ -24,3 +24,10 @@ Thumbs.db
 
 # IDE
 .vscode/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
