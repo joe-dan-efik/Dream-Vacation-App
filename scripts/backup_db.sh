@@ -4,23 +4,26 @@ set -e
 
 echo "Starting database backup..."
 
-if [ -z "$DATABASE_URL" ]; then
-    echo "Error: DATABASE_URL is not set."
-    exit 1
-fi
-
-if ! command -v pg_dump >/dev/null 2>&1; then
-    echo "Error: pg_dump is not installed."
-    exit 1
-fi
-
+CONTAINER_NAME="dream-vacation-db"
+DB_USER="dreamuser"
+DB_NAME="dreamvacations"
 BACKUP_DIR="backups"
+
 mkdir -p "$BACKUP_DIR"
+
+if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+    echo "Error: PostgreSQL container is not running."
+    exit 1
+fi
 
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 BACKUP_FILE="$BACKUP_DIR/dream_vacations_$TIMESTAMP.sql"
 
-pg_dump "$DATABASE_URL" > "$BACKUP_FILE"
+docker exec "$CONTAINER_NAME" pg_dump \
+    -U "$DB_USER" \
+    -d "$DB_NAME" \
+    > "$BACKUP_FILE"
 
-echo "Database backup completed:"
-echo "$BACKUP_FILE"
+echo "Database backup completed successfully:"
+echo "$BACKUP_FILE"O
+
