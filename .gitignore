@@ -12,9 +12,23 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Database backups
+backups/
+
+# Application logs
+logs/
+
 # OS files
 .DS_Store
 Thumbs.db
 
 # IDE
 .vscode/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+frontend/build/
