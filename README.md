@@ -1,54 +1,23 @@
 # Dream Vacation Destinations
-[![CI](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/ci.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/ci.yml) 
-[![CD](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/cd.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/cd.yml)
 
-This application allows users to create a list of countries they'd like to visit, providing basic information about each country. The project is structured to mimic a real-life production environment, employing best practices in software development, deployment, and continuous integration/continuous delivery (CI/CD).
+[![CI](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/ci.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions)
+[![CD](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/cd.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions)
+
+🌐 **Live Application:** [https://dreamvacations-app.online](https://dreamvacations-app.online)
+
+---
+
+## Project Overview
+This application is a full-stack travel and vacation booking platform built with **React**, **Node.js/Express**, and **PostgreSQL**. The complete DevOps lifecycle is automated using Docker multi-stage containerization, GitHub Actions CI/CD pipelines, Terraform Infrastructure as Code (IaC), and an Nginx reverse proxy secured with Let's Encrypt SSL on AWS EC2.
+
+---
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    A[User] --> B[React Frontend]
-    B --> C[Node.js Backend]
-    C --> D[PostgreSQL Database]
-```
-## Setup
-
-### Backend
-1. Navigate to the `backend` directory.
-2. Run `npm install` to install dependencies.
-3. Set up your PostgreSQL database and update the `.env` file with your database URL.
-4. Run `npm start` to start the server.
-
-### Frontend
-1. Navigate to the `frontend` directory.
-2. Run `npm install` to install dependencies.
-3. Update the `.env` file with your API URL (e.g., `REACT_APP_API_URL=http://localhost:3001`).
-4. Run `npm start` to start the React development server.
-
-## Features
-- **Add Countries**: Users can add countries to their dream vacation list.
-- **View Country Details**: Displays capital, population, and region information for each country.
-- **Remove Countries**: Users can remove countries from their list.
-- **Production-Ready Setup**: The project is designed to be scalable and maintainable, following industry-standard practices for deployment and CI/CD.
-
-## Roadmap
-- **CI/CD Implementation**: Automate the build, test, and deployment process using industry-standard CI/CD tools.
-- **Infrastructure as Code (IaC)**: Implement IaC for automated environment setup and management.
-- **Scalability**: Enhance the application to support multiple environments (staging, production) with proper domain names and configurations.
-- **Security**: Utilize Kubernetes Secrets and environment variables for secure data management.
-- **Microservices**: Modularize the application into microservices to improve maintainability and scalability.
-
-## Technologies Used
-- **Frontend**: React
-- **Backend**: Node.js with Express
-- **Database**: PostgreSQL
-- **External API**: REST Countries API
-- **CI/CD**: GitHub Actions with Docker images published to GitHub Container Registry (GHCR)
-- **Infrastructure as Code**: To be implemented with tools like Terraform or Helm
-
-## Best Practices
-- **Version Control**: All changes are tracked in Git for collaboration and history management.
-- **Environment Management**: Separate configurations for different environments (development, staging, production) using environment variables.
-- **Security**: Sensitive information is managed using environment variables and Kubernetes Secrets.
-- **Documentation**: The project is well-documented to facilitate onboarding and maintenance.
+    User([User Browser]) -->|HTTPS / 443| DNS[AWS Route 53]
+    DNS --> Nginx[Nginx Reverse Proxy + Let's Encrypt SSL]
+    Nginx -->|Port 3000| Frontend[React Frontend Container]
+    Nginx -->|Port 5000 /api| Backend[Node.js / Express Backend Container]
+    Backend -->|Port 5432| DB[(PostgreSQL Database Container)]
