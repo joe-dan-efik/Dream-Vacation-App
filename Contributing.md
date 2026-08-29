@@ -1,26 +1,23 @@
-# Contributing to this Project
+# Dream Vacation Destinations
 
-## Branching Strategy
+[![CI](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/ci.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions)
+[![CD](https://github.com/joe-dan-efik/Dream-Vacation-App/actions/workflows/cd.yml/badge.svg)](https://github.com/joe-dan-efik/Dream-Vacation-App/actions)
 
-1. `main`: Represents the production-ready state.
-2. `develop`: Main development branch.
-3. `staging`: Pre-production testing environment.
+🌐 **Live Application:** [https://dreamvacations-app.online](https://dreamvacations-app.online)
 
-## Development Workflow
+---
 
-1. All development work happens on the `develop` branch.
-2. For larger features, create a feature branch from `develop`.
-3. When ready for release:
-   a. Create a release branch from `develop`.
-   b. Create a PR to merge the release branch into `staging`.
-   c. After testing in staging, create a PR to merge `staging` into `main`.
+## Project Overview
+This application is a full-stack travel and vacation booking platform built with **React**, **Node.js/Express**, and **PostgreSQL**. The complete DevOps lifecycle is automated using Docker multi-stage containerization, GitHub Actions CI/CD pipelines, Terraform Infrastructure as Code (IaC), and an Nginx reverse proxy secured with Let's Encrypt SSL on AWS EC2.
 
-4. Always ensure `develop` is in a working state.
-5. Pull and rebase frequently to avoid conflicts.
+---
 
-## Pull Request Process
+## Architecture
 
-1. Ensure your code adheres to our style guide.
-2. Update the README.md with details of changes if applicable.
-3. Increase the version numbers in any examples files and the README.md to the new version that this PR would represent.
-4. You may merge the Pull Request once you have the sign-off of two other developers.
+```mermaid
+flowchart TD
+    User([User Browser]) -->|HTTPS / 443| DNS[AWS Route 53]
+    DNS --> Nginx[Nginx Reverse Proxy + Let's Encrypt SSL]
+    Nginx -->|Port 3000| Frontend[React Frontend Container]
+    Nginx -->|Port 5000 /api| Backend[Node.js / Express Backend Container]
+    Backend -->|Port 5432| DB[(PostgreSQL Database Container)]
